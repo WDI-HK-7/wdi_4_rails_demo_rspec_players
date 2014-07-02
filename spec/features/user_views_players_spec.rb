@@ -14,4 +14,14 @@ feature 'User views players' do
       end
     end
   end
+
+  scenario 'in alphabetical order' do
+    create(:player, name: 'George')
+    create(:player, name: 'Zack')
+    create(:player, name: 'Cecil')
+
+    visit root_path
+
+    expect(page).to have_content(/Cecil.*George.*Zack/)
+  end
 end
