@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 feature 'User creates a player' do
+  background do
+    visit root_path
+    click_link 'Add Player'
+  end
+
   scenario 'successfully' do
     other_player = create(:player)
-    visit root_path
 
-    click_link 'Add Player'
     fill_in 'Name', with: 'Mike'
     select 'Wizard', from: 'Job'
     fill_in 'Health', with: '60'
@@ -20,5 +23,14 @@ feature 'User creates a player' do
     end
     # expect(page).to have_content 'Player successfully created'
     expect(page).to have_css '.player', text: other_player.name
+  end
+
+  scenario 'unsuccessfully due to required fields being blank' do
+    click_button 'Create Player'
+
+    expect(page).to have_content "Name can't be blank"
+    expect(page).to have_content "Job can't be blank"
+    expect(page).to have_content "Health can't be blank"
+    expect(page).to have_content "Magic can't be blank"
   end
 end
