@@ -1,0 +1,19 @@
+<%= form_for @player do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :job %>
+    <%= f.select :job, Player::JOBS %>
+  </div>
+  <div>
+    <%= f.label :health %>
+    <%= f.text_field :health %>
+  </div>
+  <div>
+    <%= f.label :magic %>
+    <%= f.text_field :magic %>
+  </div>
+  <%= f.submit %>
+<% end %>
